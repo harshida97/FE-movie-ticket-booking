@@ -9,15 +9,12 @@ import Register from "../components/Register";
 import TheaterList from "../components/TheaterList"
 
 import UserHome from "../pages/user/UserHome";
-import UserShowPage from "../pages/user/userShowPage";
 import BookingForm from "../pages/user/BookingForm";
 import ReviewsList from "../pages/user/ReviewList"
 
 import AdminHome from "../pages/admin/AdminHome";
-import AdminShowPage from "../pages/admin/AdminShowPage";
 
 import OwnerHome from "../pages/owner/OwnerHome";
-import OwnerShowPage from "../pages/owner/OwnerShowPage";
 import AddShow from "../pages/owner/AddShow";
 import RegisterTheater from "../pages/owner/RegisterTheater";
 import PaymentSuccess from "../pages/user/PaymentSuccess";
@@ -56,10 +53,6 @@ export const router = createBrowserRouter([
                 element: <UserHome />  
             },
             {
-                path: "shows",
-                element: <UserShowPage />
-            },
-            {
 
                 path:"bookings/:showId",
                 element: <BookingForm />
@@ -96,10 +89,7 @@ export const router = createBrowserRouter([
                 path:"adminhome",
                 element: <AdminHome/>
             },
-            {
-                path: "shows",
-                element: <AdminShowPage />
-            },
+            
             {
                 path: "theaters",
                 element: <TheaterList role="admin" />
@@ -128,11 +118,7 @@ export const router = createBrowserRouter([
                 element:<OwnerHome/>
 
             },
-            {
-                path: "shows",
-                element: <OwnerShowPage />
-            },
-            
+                        
             {
                 path:"addshows",
                 element: <AddShow />

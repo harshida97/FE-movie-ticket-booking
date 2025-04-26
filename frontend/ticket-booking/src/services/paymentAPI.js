@@ -1,4 +1,4 @@
-import { userInstance } from '../axios/axiosInstance';
+import { userInstance } from '../axios/axiosInstance'
 
 export const makePayment = (data) => {
   const token = localStorage.getItem('token');
