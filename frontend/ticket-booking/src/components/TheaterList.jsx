@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import { fetchTheaterList, approveTheater } from '../services/theaterApi';
+import { fetchTheaterList, approveTheater,deleteTheater } from '../services/theaterApi';
 
 const TheaterList = () => {
   const [theaters, setTheaters] = useState([]);
@@ -26,7 +26,7 @@ const TheaterList = () => {
       setRole(decoded.role?.toLowerCase().trim());
     }
 
-    // ✅ Fetch theaters
+    // Fetch theaters
     const getTheaters = async () => {
       try {
         const data = await fetchTheaterList();
@@ -67,6 +67,25 @@ const TheaterList = () => {
     });
   };
 
+// delete theater
+  const handleDelete = async (theaterId) => {
+    const token = localStorage.getItem('admin-token');
+    if (!token) {
+      setError('No admin token found.');
+      return;
+    }
+  
+    try {
+      await deleteTheater(theaterId, token);
+      setTheaters((prev) => prev.filter((theater) => theater._id !== theaterId));
+      alert('Theater deleted successfully.');
+    } catch (err) {
+      setError('Delete failed: ' + (err.response?.data?.message || err.message));
+    }
+  };
+
+
+
   return (
     <div className="container mx-auto p-4 text-center">
       <h1 className="text-2xl font-bold mb-4">Theater List</h1>
@@ -102,6 +121,15 @@ const TheaterList = () => {
           Approve
         </button>
         )}
+
+        {role === 'admin' && (
+         <button
+         onClick={() => handleDelete(theater._id)}
+         className="bg-red-500 text-white px-4 py-2 rounded mt-2"
+         >
+        Delete
+       </button>
+      )}
 
        {/* Owner add show button */}
        {role === 'owner' && theater.isApproved && (
